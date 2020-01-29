@@ -11,7 +11,7 @@ env:
     - BRANCH=stein
     - LOGSERVER_PSW=${LOGSERVER_PSW}
     - LOGSERVER=${LOGSERVER}
-    - LOGSERVER_PSW=${LOGSERVER_PSW}
+    - LOGSERVER_USER=${LOGSERVER_USER}
     - DOCKER_NAME=${DISTRO}-binary-neutron-openvswitch-agent-${BRANCH}-${ARCH}
 
 script:
@@ -20,4 +20,3 @@ script:
   - echo "Hello $DOCKER_NAME ${LOGSERVER_USER}@${LOGSERVER}:/tmp" $(date +%Y%m%d_%H:%m:%s) > /tmp/hello.txt
   - cat /tmp/hello.txt
   - sshpass -p $LOGSERVER_PSW scp /tmp/hello.txt ${LOGSERVER_USER}@${LOGSERVER}:/tmp
-  - sudo ufw status
