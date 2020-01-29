@@ -1,5 +1,4 @@
 language: python
-python: 2.7
 sudo: required
 dist: bionic
 arch: arm64
@@ -14,9 +13,6 @@ env:
     - LOGSERVER=${LOGSERVER}
     - LOGSERVER_PSW=${LOGSERVER_PSW}
     - DOCKER_NAME=${DISTRO}-binary-neutron-openvswitch-agent-${BRANCH}-${ARCH}
-
-services:
-  - docker
 
 script:
   # Run container in detached state
