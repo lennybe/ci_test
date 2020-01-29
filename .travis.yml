@@ -1,0 +1,25 @@
+language: python
+python: 2.7
+sudo: required
+dist: bionic
+arch: arm64
+env:
+  global:
+    - ARCH=${TRAVIS_ARCH}
+    - TAG=${TAG:-latest}
+    - DISTRO=centos
+    - VERSION=7
+    - BRANCH=stein
+    - LOGSERVER_PSW=${LOGSERVER_PSW}
+    - LOGSERVER=${LOGSERVER}
+    - LOGSERVER_PSW=${LOGSERVER_PSW}
+    - DOCKER_NAME=${DISTRO}-binary-neutron-openvswitch-agent-${BRANCH}-${ARCH}
+
+services:
+  - docker
+
+script:
+  # Run container in detached state
+  - sudo apt-get install -y sshpass
+  - echo "Hello $DOCKER_NAME" $(date +%Y%m%d_%H:%m:%s) > /tmp/hello.txt
+  - sshpass -p $LOGSERVER_PSW scp /tmp/hello.txt ${LOGSERVER_USER}@${LOGSERVER}:/database/tmp
