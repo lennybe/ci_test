@@ -18,4 +18,5 @@ script:
   # Run container in detached state
   - sudo apt-get install -y sshpass
   - echo "Hello $DOCKER_NAME" $(date +%Y%m%d_%H:%m:%s) > /tmp/hello.txt
+  - cat /tmp/hello.txt
   - sshpass -p $LOGSERVER_PSW scp /tmp/hello.txt ${LOGSERVER_USER}@${LOGSERVER}:/database/tmp
