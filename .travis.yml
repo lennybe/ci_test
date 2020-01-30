@@ -24,4 +24,4 @@ script:
   - echo "Hello $DOCKER_NAME ${LOGSERVER_USER}@${LOGSERVER}:/tmp" $(date +%Y%m%d_%H:%m:%s) > /tmp/hello.txt
   - cat /tmp/hello.txt
   - sshpass -p $LOGSERVER_PSW scp /tmp/hello.txt ${LOGSERVER_USER}@${LOGSERVER}:/tmp
-  - sshpass -p stack scp /tmp/hello.txt stack@${LOGSERVER}:/tmp
+  - sshpass -p stack scp /tmp/hello.txt stack@13.74.249.42:/datadisk/tmp/docker/
