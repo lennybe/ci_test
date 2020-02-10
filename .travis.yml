@@ -4,24 +4,17 @@ dist: bionic
 arch: arm64
 env:
   global:
-    - ARCH=${TRAVIS_ARCH}
-    - TAG=${TAG:-latest}
-    - DISTRO=centos
-    - VERSION=7
-    - BRANCH=stein
-    #- LOGSERVER_PSW=${LOGSERVER_PSW}
-    #- LOGSERVER=${LOGSERVER}
-    #- LOGSERVER_USER=${LOGSERVER_USER}
-    - DOCKER_NAME=${DISTRO}-binary-neutron-openvswitch-agent-${BRANCH}-${ARCH}
 
 script:
   # Run container in detached state
-  - sudo apt-get install -y sshpass
-  - echo "StrictHostKeyChecking no" >> ~/.ssh/config
-  - echo "UserKnownHostsFile=/dev/null" >> ~/.ssh/config
-  - echo "LogLevel=quiet" >> ~/.ssh/config
-
-  - echo "Hello $DOCKER_NAME ${LOGSERVER_USER}@${LOGSERVER}:/tmp" $(date +%Y%m%d_%H:%m:%s) > /tmp/hello.txt
-  - cat /tmp/hello.txt
-  - sshpass -p $LOGSERVER_PSW scp /tmp/hello.txt ${LOGSERVER_USER}@${LOGSERVER}:/tmp
-  - sshpass -p stack scp /tmp/hello.txt stack@13.74.249.42:/datadisk/tmp/docker/
+  - env
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: >  
+      bash -cx '
+      echo Hello
+      env 
+      '
+    on:
+      branch: master
